@@ -224,7 +224,20 @@ int main() {
 
 
 	//Acess the first camera
-	VideoCapture camera(0);
+	VideoCapture camera;
+	
+	for (size_t i=5; i>=-1; --i){
+		cout << "trying port: " << i << endl;
+		camera.open(i);
+		if (camera.isOpened()){
+			cout << "YAY!" << endl;
+			break;
+		}
+		if (i ==-1){
+			cout << "failed to connect to camera" << endl;
+			return -1;
+		}
+	}
 
 	//Declare our windows
 	namedWindow("Original", WINDOW_NORMAL);
@@ -232,11 +245,7 @@ int main() {
 	namedWindow("Red", WINDOW_NORMAL);
 	namedWindow("Blu", WINDOW_NORMAL);
 
-	//Check camera opened
-	if (!camera.isOpened()){
-		cout << "IM BLIND!" << endl;
-		return -1;
-	}
+
 
 
 
